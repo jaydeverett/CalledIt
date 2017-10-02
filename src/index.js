@@ -1,8 +1,37 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
-import './index.css';
-import App from './App';
-import registerServiceWorker from './registerServiceWorker';
+import { render } from 'react-dom';
+import { Route, Link, BrowserRouter } from 'react-router-dom';
+import { Provider } from 'react-redux'
+import { ConnectedRouter } from 'react-router-redux'
+import store, { history } from './store'
 
-ReactDOM.render(<App />, document.getElementById('root'));
-registerServiceWorker();
+import './styles/style.css';
+
+import App from './components/App';
+import Main from './components/Main';
+import ShowGrid from './components/ShowGrid';
+import Single from './components/Single';
+
+const target = document.querySelector('#root')
+
+// const App = () => (
+//   <div>
+//     <header>
+//       <Route exact path="/" component={Main}/>
+//     </header>
+//     <main>
+//
+//     </main>
+//   </div>
+// )
+
+render(
+  <Provider store={store}>
+    <ConnectedRouter history={history}>
+      <div>
+        <App />
+      </div>
+    </ConnectedRouter>
+  </Provider>,
+  target
+)
