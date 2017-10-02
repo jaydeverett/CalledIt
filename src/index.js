@@ -14,16 +14,6 @@ import Single from './components/Single';
 
 const target = document.querySelector('#root')
 
-// const App = () => (
-//   <div>
-//     <header>
-//       <Route exact path="/" component={Main}/>
-//     </header>
-//     <main>
-//
-//     </main>
-//   </div>
-// )
 
 render(
   <Provider store={store}>
