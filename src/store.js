@@ -1,18 +1,34 @@
+import React from 'react'
+import ReactDOM from 'react-dom'
 
-import { createStore, applyMiddleware, compose } from 'redux'
-import { routerMiddleware } from 'react-router-redux'
+import { createStore, combineReducers, applyMiddleware, compose } from 'redux'
+import { ConnectedRouter, routerReducer, routerMiddleware, push } from 'react-router-redux'
+import { Provider } from 'react-redux'
 import thunk from 'redux-thunk'
 import createHistory from 'history/createBrowserHistory'
 import rootReducer from './reducers/index'
+import { Route } from 'react-router'
 
+
+import predictions from './data/predictions';
+import shows from './data/shows';
+
+// Create a history of your choosing (we're using a browser history in this case)
 export const history = createHistory()
 
-const initialState = {}
+// Build the middleware for intercepting and dispatching navigation actions
+const middleware = routerMiddleware(history)
+
+const defaultState = {
+  shows,
+  predictions
+}
+
 const enhancers = []
-const middleware = [
-  thunk,
-  routerMiddleware(history)
-]
+// const middleware = [
+//   thunk,
+//   routerMiddleware(history)
+// ]
 
 if (process.env.NODE_ENV === 'development') {
   const devToolsExtension = window.devToolsExtension
@@ -22,15 +38,26 @@ if (process.env.NODE_ENV === 'development') {
   }
 }
 
-const composedEnhancers = compose(
-  applyMiddleware(...middleware),
-  ...enhancers
-)
+// const composedEnhancers = compose(
+//   applyMiddleware(...middleware),
+//   ...enhancers
+// )
+
+
+// const store = createStore(
+//   combineReducers({
+//     rootReducer,
+//     defaultState,
+//     router: routerReducer
+//   }),
+//   applyMiddleware(middleware)
+// )
 
 const store = createStore(
   rootReducer,
-  initialState,
-  composedEnhancers
+  defaultState
 )
+
+console.log(store.getState());
 
 export default store

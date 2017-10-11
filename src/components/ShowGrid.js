@@ -1,14 +1,18 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { push } from 'react-router-redux'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 
+import Show from './Show';
 
-class ShowGrid extends Component{
+
+
+class ShowGrid extends React.Component{
   render() {
     return (
       <div className="show-grid">
-        I'm the showgrid
+        {console.log(this.props)}
+        {this.props.shows.map((show, i) => <Show {...this.props} key={i} i={i} show={show}/>)}
       </div>
     );
   }

@@ -1,18 +1,30 @@
 import React from 'react';
-import { Route, Link } from 'react-router-dom';
-import Main from './Main';
-import Single from './Single';
-import ShowGrid from './ShowGrid';
+import { BrowserRouter, Route, Link } from 'react-router-dom';
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
+import * as actionCreators from '../actions/actionCreators';
 
-const App = () => (
-  <div>
-    <header>
-      <Route exact path="/" component={Main}/>
-    </header>
-    <main>
-      <Route exact path="/" component={ShowGrid}/>
-      <Route path="/view/:showId" component={Single}/>
-    </main>
-  </div>
-)
+import Main from './Main';
+import ShowGrid from './ShowGrid';
+// import Single from './Single';
+// import Show from './Show';
+
+
+// import Single from './Single';
+// import ShowGrid from './ShowGrid';
+
+function mapStateToProps(state) {
+  return {
+    shows: state.shows,
+    predictions: state.predictions
+  }
+}
+
+function mapDispatchToProps(dispatch) {
+  return bindActionCreators(actionCreators, dispatch);
+}
+
+const App = connect(mapStateToProps, mapDispatchToProps)(Main);
+
+
 export default App;

@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
+import ShowGrid from './ShowGrid.js';
 import { Link } from 'react-router-dom';
 
-class Main extends Component{
+class Main extends React.Component{
   render() {
     return (
       <div>
@@ -9,7 +10,8 @@ class Main extends Component{
           <Link to="/">Called It</Link>
         </h1>
         <p className="main-title">Post Your TV Show Predictions</p>
-        {/* {React.cloneElement(this.props.children, this.props)} */}
+        <ShowGrid {...this.props}/>
+        {console.log(this.props.children)}
       </div>
     );
   }
